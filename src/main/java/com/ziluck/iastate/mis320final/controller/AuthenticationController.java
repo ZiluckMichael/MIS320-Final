@@ -34,7 +34,7 @@ public class AuthenticationController {
         this.userDetailsService = userDetailsService;
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/noauth/authenticate")
     public ResponseEntity<AuthResponse> requestToken(@RequestBody AuthRequest authenticationRequest) {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
@@ -44,7 +44,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
-    @PostMapping("/register")
+    @PostMapping("/noauth/register")
     public ResponseEntity<AuthResponse> registerUser(@RequestBody WebUser user) {
         user = userDetailsService.registerUser(user);
         return requestToken(new AuthRequest(user.getEmail(), user.getPassword()));
