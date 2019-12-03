@@ -8,10 +8,9 @@ CREATE TABLE person
 
 CREATE TABLE guest
 (
-    person_id       NUMBER PRIMARY KEY REFERENCES person (person_id),
-    rewards_number  CHAR(12)           NOT NULL,
-    rewards_points  NUMBER DEFAULT (0) NOT NULL,
-    payment_card_id NUMBER             NULL REFERENCES payment_card (payment_card_id)
+    person_id      NUMBER PRIMARY KEY REFERENCES person (person_id),
+    rewards_number CHAR(12)           NOT NULL,
+    rewards_points NUMBER DEFAULT (0) NOT NULL
 );
 
 CREATE TABLE payment_card
