@@ -57,68 +57,6 @@ public class Room {
         return this;
     }
 
-    @Basic
-    @Column(name = "ROOM_TYPE_ID")
-    public long getRoomTypeId() {
-        return roomTypeId;
-    }
-
-    public Room setRoomTypeId(long roomTypeId) {
-        this.roomTypeId = roomTypeId;
-        return this;
-    }
-
-    @Basic
-    @Column(name = "LOCATION_ID")
-    public long getLocationId() {
-        return locationId;
-    }
-
-    public Room setLocationId(long locationId) {
-        this.locationId = locationId;
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Room room = (Room) o;
-
-        if (roomId != room.roomId) {
-            return false;
-        }
-        if (squareFeet != room.squareFeet) {
-            return false;
-        }
-        if (roomTypeId != room.roomTypeId) {
-            return false;
-        }
-        if (locationId != room.locationId) {
-            return false;
-        }
-        if (!Objects.equals(roomNumber, room.roomNumber)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (roomId ^ (roomId >>> 32));
-        result = 31 * result + (roomNumber != null ? roomNumber.hashCode() : 0);
-        result = 31 * result + (int) (squareFeet ^ (squareFeet >>> 32));
-        result = 31 * result + (int) (roomTypeId ^ (roomTypeId >>> 32));
-        result = 31 * result + (int) (locationId ^ (locationId >>> 32));
-        return result;
-    }
-
     @ManyToOne
     @JoinColumn(name = "ROOM_TYPE_ID", referencedColumnName = "ROOM_TYPE_ID", nullable = false)
     public RoomType getRoomTypeByRoomTypeId() {
@@ -151,7 +89,7 @@ public class Room {
         return this;
     }
 
-    @OneToMany(mappedBy = "roomByRoomId")
+    @OneToMany(mappedBy = "room")
     public List<RoomReservation> getRoomReservationsByRoomId() {
         return roomReservationsByRoomId;
     }
@@ -159,5 +97,41 @@ public class Room {
     public Room setRoomReservationsByRoomId(List<RoomReservation> roomReservationsByRoomId) {
         this.roomReservationsByRoomId = roomReservationsByRoomId;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Room room = (Room) o;
+
+        if (roomId != room.roomId) {
+            return false;
+        }
+        if (squareFeet != room.squareFeet) {
+            return false;
+        }
+        if (roomTypeId != room.roomTypeId) {
+            return false;
+        }
+        if (locationId != room.locationId) {
+            return false;
+        }
+        return Objects.equals(roomNumber, room.roomNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (roomId ^ (roomId >>> 32));
+        result = 31 * result + (roomNumber != null ? roomNumber.hashCode() : 0);
+        result = 31 * result + (int) (squareFeet ^ (squareFeet >>> 32));
+        result = 31 * result + (int) (roomTypeId ^ (roomTypeId >>> 32));
+        result = 31 * result + (int) (locationId ^ (locationId >>> 32));
+        return result;
     }
 }

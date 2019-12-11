@@ -1,25 +1,19 @@
 package com.ziluck.iastate.mis320final.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import java.sql.Time;
+import javax.persistence.*;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "PERSON", schema = "MIS320_SCHEMA")
 @Inheritance(
-        strategy = InheritanceType.JOINED
+    strategy = InheritanceType.JOINED
 )
 public abstract class Person {
     private long personId;
     private String firstName;
     private String lastName;
-    private Time birthDate;
+    private Date birthDate;
     private String phone;
     private String phoneExt;
 
@@ -29,9 +23,8 @@ public abstract class Person {
         return personId;
     }
 
-    public Person setPersonId(long personId) {
+    public void setPersonId(long personId) {
         this.personId = personId;
-        return this;
     }
 
     @Basic
@@ -40,9 +33,8 @@ public abstract class Person {
         return firstName;
     }
 
-    public Person setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-        return this;
     }
 
     @Basic
@@ -51,20 +43,18 @@ public abstract class Person {
         return lastName;
     }
 
-    public Person setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
     }
 
     @Basic
     @Column(name = "BIRTH_DATE")
-    public Time getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public Person setBirthDate(Time birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
-        return this;
     }
 
     @Basic
@@ -73,9 +63,8 @@ public abstract class Person {
         return phone;
     }
 
-    public Person setPhone(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
-        return this;
     }
 
     @Basic
@@ -84,9 +73,8 @@ public abstract class Person {
         return phoneExt;
     }
 
-    public Person setPhoneExt(String phoneExt) {
+    public void setPhoneExt(String phoneExt) {
         this.phoneExt = phoneExt;
-        return this;
     }
 
     @Override

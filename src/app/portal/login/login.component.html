@@ -1,1 +1,42 @@
-<p>login works!</p>
+<div class="container my-5">
+    <form #loginForm="ngForm" class="border border-light p-5 row" (ngSubmit)="login()">
+        <div class="col-md-6 mx-auto">
+            <p class="h4 mb-4">Sign in</p>
+
+            <div class="form-group mb-4">
+                <input class="form-control" name="email" email required
+                       [ngClass]="{ 'is-invalid': loginForm.submitted && username.invalid, 'form-control-with-value': username.value }"
+                       [(ngModel)]="authRequest.username" #username="ngModel" type="email" id="loginFormEmail">
+                <label class="form-control-placeholder" for="loginFormEmail">E-mail</label>
+                <div class="invalid-feedback" *ngIf="loginForm.submitted && username.invalid">
+                    {{ username | validationErrors: 'username' }}
+                </div>
+            </div>
+
+            <div class="form-group mb-4">
+                <input class="form-control" name="password" minlength="8" required
+                       [ngClass]="{ 'is-invalid': loginForm.submitted && password.invalid, 'form-control-with-value': password.value }"
+                       [(ngModel)]="authRequest.password" #password="ngModel" type="password" id="loginFormPassword">
+                <label class="form-control-placeholder" for="loginFormPassword">Password</label>
+                <div class="invalid-feedback" *ngIf="loginForm.submitted && password.invalid">
+                    {{ password | validationErrors: 'password' }}
+                </div>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="loginFormRemember" name="rememberMe">
+                    <label class="custom-control-label" for="loginFormRemember">Remember me</label>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-block" type="submit">
+                Sign in
+            </button>
+
+            <p>Not a member?
+                <a routerLink="/portal/register" routerLinkActive="active">Create Account</a>
+            </p>
+        </div>
+    </form>
+</div>

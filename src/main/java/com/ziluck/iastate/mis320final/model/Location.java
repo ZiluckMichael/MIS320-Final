@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "LOCATION", schema = "MIS320_SCHEMA")
@@ -122,6 +123,26 @@ public class Location {
         return this;
     }
 
+    @OneToMany(mappedBy = "locationByLocationId")
+    public List<Employee> getEmployeesByLocationId() {
+        return employeesByLocationId;
+    }
+
+    public Location setEmployeesByLocationId(List<Employee> employeesByLocationId) {
+        this.employeesByLocationId = employeesByLocationId;
+        return this;
+    }
+
+    @OneToMany(mappedBy = "locationByLocationId")
+    public List<Room> getRoomsByLocationId() {
+        return roomsByLocationId;
+    }
+
+    public Location setRoomsByLocationId(List<Room> roomsByLocationId) {
+        this.roomsByLocationId = roomsByLocationId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -142,26 +163,22 @@ public class Location {
         if (roomCount != that.roomCount) {
             return false;
         }
-        if (street != null ? !street.equals(that.street) : that.street != null) {
+        if (!Objects.equals(street, that.street)) {
             return false;
         }
-        if (city != null ? !city.equals(that.city) : that.city != null) {
+        if (!Objects.equals(city, that.city)) {
             return false;
         }
-        if (state != null ? !state.equals(that.state) : that.state != null) {
+        if (!Objects.equals(state, that.state)) {
             return false;
         }
-        if (zipCode != null ? !zipCode.equals(that.zipCode) : that.zipCode != null) {
+        if (!Objects.equals(zipCode, that.zipCode)) {
             return false;
         }
-        if (phone != null ? !phone.equals(that.phone) : that.phone != null) {
+        if (!Objects.equals(phone, that.phone)) {
             return false;
         }
-        if (phoneExt != null ? !phoneExt.equals(that.phoneExt) : that.phoneExt != null) {
-            return false;
-        }
-
-        return true;
+        return Objects.equals(phoneExt, that.phoneExt);
     }
 
     @Override
@@ -176,25 +193,5 @@ public class Location {
         result = 31 * result + (int) (squareFeet ^ (squareFeet >>> 32));
         result = 31 * result + (int) (roomCount ^ (roomCount >>> 32));
         return result;
-    }
-
-    @OneToMany(mappedBy = "locationByLocationId")
-    public List<Employee> getEmployeesByLocationId() {
-        return employeesByLocationId;
-    }
-
-    public Location setEmployeesByLocationId(List<Employee> employeesByLocationId) {
-        this.employeesByLocationId = employeesByLocationId;
-        return this;
-    }
-
-    @OneToMany(mappedBy = "locationByLocationId")
-    public List<Room> getRoomsByLocationId() {
-        return roomsByLocationId;
-    }
-
-    public Location setRoomsByLocationId(List<Room> roomsByLocationId) {
-        this.roomsByLocationId = roomsByLocationId;
-        return this;
     }
 }

@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Time;
+import java.util.Objects;
 
 @Entity
 @Table(name = "INVOICE_PAYMENT", schema = "MIS320_SCHEMA")
@@ -53,25 +54,25 @@ public class InvoicePayment {
         return this;
     }
 
-    @Basic
-    @Column(name = "INVOICE_ID")
-    public long getInvoiceId() {
-        return invoiceId;
+    @ManyToOne
+    @JoinColumn(name = "INVOICE_ID", referencedColumnName = "INVOICE_ID", nullable = false)
+    public Invoice getInvoiceByInvoiceId() {
+        return invoiceByInvoiceId;
     }
 
-    public InvoicePayment setInvoiceId(long invoiceId) {
-        this.invoiceId = invoiceId;
+    public InvoicePayment setInvoiceByInvoiceId(Invoice invoiceByInvoiceId) {
+        this.invoiceByInvoiceId = invoiceByInvoiceId;
         return this;
     }
 
-    @Basic
-    @Column(name = "PAYMENT_CARD_ID")
-    public long getPaymentCardId() {
-        return paymentCardId;
+    @ManyToOne
+    @JoinColumn(name = "PAYMENT_CARD_ID", referencedColumnName = "PAYMENT_CARD_ID", nullable = false)
+    public PaymentCard getPaymentCardByPaymentCardId() {
+        return paymentCardByPaymentCardId;
     }
 
-    public InvoicePayment setPaymentCardId(long paymentCardId) {
-        this.paymentCardId = paymentCardId;
+    public InvoicePayment setPaymentCardByPaymentCardId(PaymentCard paymentCardByPaymentCardId) {
+        this.paymentCardByPaymentCardId = paymentCardByPaymentCardId;
         return this;
     }
 
@@ -98,11 +99,7 @@ public class InvoicePayment {
         if (paymentCardId != that.paymentCardId) {
             return false;
         }
-        if (paymentDate != null ? !paymentDate.equals(that.paymentDate) : that.paymentDate != null) {
-            return false;
-        }
-
-        return true;
+        return Objects.equals(paymentDate, that.paymentDate);
     }
 
     @Override
@@ -113,27 +110,5 @@ public class InvoicePayment {
         result = 31 * result + (int) (invoiceId ^ (invoiceId >>> 32));
         result = 31 * result + (int) (paymentCardId ^ (paymentCardId >>> 32));
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "INVOICE_ID", referencedColumnName = "INVOICE_ID", nullable = false)
-    public Invoice getInvoiceByInvoiceId() {
-        return invoiceByInvoiceId;
-    }
-
-    public InvoicePayment setInvoiceByInvoiceId(Invoice invoiceByInvoiceId) {
-        this.invoiceByInvoiceId = invoiceByInvoiceId;
-        return this;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "PAYMENT_CARD_ID", referencedColumnName = "PAYMENT_CARD_ID", nullable = false)
-    public PaymentCard getPaymentCardByPaymentCardId() {
-        return paymentCardByPaymentCardId;
-    }
-
-    public InvoicePayment setPaymentCardByPaymentCardId(PaymentCard paymentCardByPaymentCardId) {
-        this.paymentCardByPaymentCardId = paymentCardByPaymentCardId;
-        return this;
     }
 }

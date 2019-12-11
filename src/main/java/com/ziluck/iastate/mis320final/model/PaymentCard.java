@@ -78,14 +78,24 @@ public class PaymentCard {
         return this;
     }
 
-    @Basic
-    @Column(name = "GUEST_ID")
-    public long getGuestId() {
-        return guestId;
+    @OneToMany(mappedBy = "paymentCardByPaymentCardId")
+    public List<InvoicePayment> getInvoicePaymentsByPaymentCardId() {
+        return invoicePaymentsByPaymentCardId;
     }
 
-    public PaymentCard setGuestId(long guestId) {
-        this.guestId = guestId;
+    public PaymentCard setInvoicePaymentsByPaymentCardId(List<InvoicePayment> invoicePaymentsByPaymentCardId) {
+        this.invoicePaymentsByPaymentCardId = invoicePaymentsByPaymentCardId;
+        return this;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "GUEST_ID", referencedColumnName = "PERSON_ID", nullable = false)
+    public Guest getGuestByGuestId() {
+        return guestByGuestId;
+    }
+
+    public PaymentCard setGuestByGuestId(Guest guestByGuestId) {
+        this.guestByGuestId = guestByGuestId;
         return this;
     }
 
@@ -128,26 +138,5 @@ public class PaymentCard {
         result = 31 * result + (securityValue != null ? securityValue.hashCode() : 0);
         result = 31 * result + (int) (guestId ^ (guestId >>> 32));
         return result;
-    }
-
-    @OneToMany(mappedBy = "paymentCardByPaymentCardId")
-    public List<InvoicePayment> getInvoicePaymentsByPaymentCardId() {
-        return invoicePaymentsByPaymentCardId;
-    }
-
-    public PaymentCard setInvoicePaymentsByPaymentCardId(List<InvoicePayment> invoicePaymentsByPaymentCardId) {
-        this.invoicePaymentsByPaymentCardId = invoicePaymentsByPaymentCardId;
-        return this;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "GUEST_ID", referencedColumnName = "PERSON_ID", nullable = false)
-    public Guest getGuestByGuestId() {
-        return guestByGuestId;
-    }
-
-    public PaymentCard setGuestByGuestId(Guest guestByGuestId) {
-        this.guestByGuestId = guestByGuestId;
-        return this;
     }
 }

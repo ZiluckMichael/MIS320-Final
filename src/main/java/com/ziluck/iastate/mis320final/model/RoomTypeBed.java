@@ -1,12 +1,6 @@
 package com.ziluck.iastate.mis320final.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ROOM_TYPE_BED", schema = "MIS320_SCHEMA")
@@ -28,25 +22,25 @@ public class RoomTypeBed {
         return this;
     }
 
-    @Basic
-    @Column(name = "ROOM_TYPE_ID")
-    public long getRoomTypeId() {
-        return roomTypeId;
+    @ManyToOne
+    @JoinColumn(name = "ROOM_TYPE_ID", referencedColumnName = "ROOM_TYPE_ID", nullable = false)
+    public RoomType getRoomTypeByRoomTypeId() {
+        return roomTypeByRoomTypeId;
     }
 
-    public RoomTypeBed setRoomTypeId(long roomTypeId) {
-        this.roomTypeId = roomTypeId;
+    public RoomTypeBed setRoomTypeByRoomTypeId(RoomType roomTypeByRoomTypeId) {
+        this.roomTypeByRoomTypeId = roomTypeByRoomTypeId;
         return this;
     }
 
-    @Basic
-    @Column(name = "BED_TYPE_ID")
-    public long getBedTypeId() {
-        return bedTypeId;
+    @ManyToOne
+    @JoinColumn(name = "BED_TYPE_ID", referencedColumnName = "BED_TYPE_ID", nullable = false)
+    public BedType getBedTypeByBedTypeId() {
+        return bedTypeByBedTypeId;
     }
 
-    public RoomTypeBed setBedTypeId(long bedTypeId) {
-        this.bedTypeId = bedTypeId;
+    public RoomTypeBed setBedTypeByBedTypeId(BedType bedTypeByBedTypeId) {
+        this.bedTypeByBedTypeId = bedTypeByBedTypeId;
         return this;
     }
 
@@ -76,27 +70,5 @@ public class RoomTypeBed {
         result = 31 * result + (int) (roomTypeId ^ (roomTypeId >>> 32));
         result = 31 * result + (int) (bedTypeId ^ (bedTypeId >>> 32));
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ROOM_TYPE_ID", referencedColumnName = "ROOM_TYPE_ID", nullable = false)
-    public RoomType getRoomTypeByRoomTypeId() {
-        return roomTypeByRoomTypeId;
-    }
-
-    public RoomTypeBed setRoomTypeByRoomTypeId(RoomType roomTypeByRoomTypeId) {
-        this.roomTypeByRoomTypeId = roomTypeByRoomTypeId;
-        return this;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "BED_TYPE_ID", referencedColumnName = "BED_TYPE_ID", nullable = false)
-    public BedType getBedTypeByBedTypeId() {
-        return bedTypeByBedTypeId;
-    }
-
-    public RoomTypeBed setBedTypeByBedTypeId(BedType bedTypeByBedTypeId) {
-        this.bedTypeByBedTypeId = bedTypeByBedTypeId;
-        return this;
     }
 }

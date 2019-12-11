@@ -57,14 +57,44 @@ public class Reservation {
         return this;
     }
 
-    @Basic
-    @Column(name = "GUEST_ID")
-    public long getGuestId() {
-        return guestId;
+    @OneToMany(mappedBy = "reservationByReservationId")
+    public List<Invoice> getInvoicesByReservationId() {
+        return invoicesByReservationId;
     }
 
-    public Reservation setGuestId(long guestId) {
-        this.guestId = guestId;
+    public Reservation setInvoicesByReservationId(List<Invoice> invoicesByReservationId) {
+        this.invoicesByReservationId = invoicesByReservationId;
+        return this;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "GUEST_ID", referencedColumnName = "PERSON_ID", nullable = false)
+    public Guest getGuestByGuestId() {
+        return guestByGuestId;
+    }
+
+    public Reservation setGuestByGuestId(Guest guestByGuestId) {
+        this.guestByGuestId = guestByGuestId;
+        return this;
+    }
+
+    @OneToMany(mappedBy = "reservation")
+    public List<ReservationService> getReservationServicesByReservationId() {
+        return reservationServicesByReservationId;
+    }
+
+    public Reservation setReservationServicesByReservationId(List<ReservationService> reservationServicesByReservationId) {
+        this.reservationServicesByReservationId = reservationServicesByReservationId;
+        return this;
+    }
+
+    @OneToMany(mappedBy = "reservation")
+    public List<RoomReservation> getRoomReservationsByReservationId() {
+        return roomReservationsByReservationId;
+    }
+
+    public Reservation setRoomReservationsByReservationId(List<RoomReservation> roomReservationsByReservationId) {
+        this.roomReservationsByReservationId = roomReservationsByReservationId;
         return this;
     }
 
@@ -102,46 +132,5 @@ public class Reservation {
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (int) (guestId ^ (guestId >>> 32));
         return result;
-    }
-
-    @OneToMany(mappedBy = "reservationByReservationId")
-    public List<Invoice> getInvoicesByReservationId() {
-        return invoicesByReservationId;
-    }
-
-    public Reservation setInvoicesByReservationId(List<Invoice> invoicesByReservationId) {
-        this.invoicesByReservationId = invoicesByReservationId;
-        return this;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "GUEST_ID", referencedColumnName = "PERSON_ID", nullable = false)
-    public Guest getGuestByGuestId() {
-        return guestByGuestId;
-    }
-
-    public Reservation setGuestByGuestId(Guest guestByGuestId) {
-        this.guestByGuestId = guestByGuestId;
-        return this;
-    }
-
-    @OneToMany(mappedBy = "reservationByReservationId")
-    public List<ReservationService> getReservationServicesByReservationId() {
-        return reservationServicesByReservationId;
-    }
-
-    public Reservation setReservationServicesByReservationId(List<ReservationService> reservationServicesByReservationId) {
-        this.reservationServicesByReservationId = reservationServicesByReservationId;
-        return this;
-    }
-
-    @OneToMany(mappedBy = "reservationByReservationId")
-    public List<RoomReservation> getRoomReservationsByReservationId() {
-        return roomReservationsByReservationId;
-    }
-
-    public Reservation setRoomReservationsByReservationId(List<RoomReservation> roomReservationsByReservationId) {
-        this.roomReservationsByReservationId = roomReservationsByReservationId;
-        return this;
     }
 }

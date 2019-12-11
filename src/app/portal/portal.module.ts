@@ -1,11 +1,10 @@
 import { NgModule } from "@angular/core";
-import { LoginComponent } from "src/app/portal/login/login.component";
+import { PortalRoutingModule } from "./portal-routing.module";
 
 @NgModule({
-    declarations: [
-        LoginComponent
+    imports: [
+        PortalRoutingModule
     ]
 })
 export class PortalModule {
-
 }

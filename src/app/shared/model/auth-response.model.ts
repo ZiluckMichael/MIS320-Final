@@ -1,4 +1,5 @@
-export class AuthResponseModel {
-    public constructor(public token?: string) {
+export class AuthResponse {
+    public constructor(public token?: string,
+                       public tokenType?: string) {
     }
 }

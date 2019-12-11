@@ -1,10 +1,10 @@
-import { IllegalArgumentError } from 'src/app/shared/error/illegal-argument.error';
-import { xnor } from 'src/app/shared/utils/logical.util';
+import { IllegalArgumentError } from 'app/shared/error/illegal-argument.error';
 
-export class AuthRequestModel {
+export class AuthRequest {
     constructor(public username?: string,
                 public password?: string) {
-        if (xnor(username, password)) {
+        if ((this.username == null && this.password != null) ||
+            (this.username != null && this.password == null)) {
             throw new IllegalArgumentError("Must specify either both or neither username and password.");
         }
     }

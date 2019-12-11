@@ -38,6 +38,16 @@ public class BedType {
         return this;
     }
 
+    @OneToMany(mappedBy = "bedTypeByBedTypeId")
+    public List<RoomTypeBed> getRoomTypeBedsByBedTypeId() {
+        return roomTypeBedsByBedTypeId;
+    }
+
+    public BedType setRoomTypeBedsByBedTypeId(List<RoomTypeBed> roomTypeBedsByBedTypeId) {
+        this.roomTypeBedsByBedTypeId = roomTypeBedsByBedTypeId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -61,15 +71,5 @@ public class BedType {
         int result = (int) (bedTypeId ^ (bedTypeId >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "bedTypeByBedTypeId")
-    public List<RoomTypeBed> getRoomTypeBedsByBedTypeId() {
-        return roomTypeBedsByBedTypeId;
-    }
-
-    public BedType setRoomTypeBedsByBedTypeId(List<RoomTypeBed> roomTypeBedsByBedTypeId) {
-        this.roomTypeBedsByBedTypeId = roomTypeBedsByBedTypeId;
-        return this;
     }
 }

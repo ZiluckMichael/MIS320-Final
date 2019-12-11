@@ -1,12 +1,6 @@
 package com.ziluck.iastate.mis320final.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ROOM_AMENITY", schema = "MIS320_SCHEMA")
@@ -27,24 +21,24 @@ public class RoomAmenity {
         this.roomAmenityId = roomAmenityId;
     }
 
-    @Basic
-    @Column(name = "ROOM_ID")
-    public long getRoomId() {
-        return roomId;
+    @ManyToOne
+    @JoinColumn(name = "ROOM_ID", referencedColumnName = "ROOM_ID", nullable = false)
+    public Room getRoomByRoomId() {
+        return roomByRoomId;
     }
 
-    public void setRoomId(long roomId) {
-        this.roomId = roomId;
+    public void setRoomByRoomId(Room roomByRoomId) {
+        this.roomByRoomId = roomByRoomId;
     }
 
-    @Basic
-    @Column(name = "AMENITY_TYPE_ID")
-    public long getAmenityTypeId() {
-        return amenityTypeId;
+    @ManyToOne
+    @JoinColumn(name = "AMENITY_TYPE_ID", referencedColumnName = "AMENITY_TYPE_ID", nullable = false)
+    public AmenityType getAmenityTypeByAmenityTypeId() {
+        return amenityTypeByAmenityTypeId;
     }
 
-    public void setAmenityTypeId(long amenityTypeId) {
-        this.amenityTypeId = amenityTypeId;
+    public void setAmenityTypeByAmenityTypeId(AmenityType amenityTypeByAmenityTypeId) {
+        this.amenityTypeByAmenityTypeId = amenityTypeByAmenityTypeId;
     }
 
     @Override
@@ -74,25 +68,5 @@ public class RoomAmenity {
         result = 31 * result + (int) (roomId ^ (roomId >>> 32));
         result = 31 * result + (int) (amenityTypeId ^ (amenityTypeId >>> 32));
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ROOM_ID", referencedColumnName = "ROOM_ID", nullable = false)
-    public Room getRoomByRoomId() {
-        return roomByRoomId;
-    }
-
-    public void setRoomByRoomId(Room roomByRoomId) {
-        this.roomByRoomId = roomByRoomId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "AMENITY_TYPE_ID", referencedColumnName = "AMENITY_TYPE_ID", nullable = false)
-    public AmenityType getAmenityTypeByAmenityTypeId() {
-        return amenityTypeByAmenityTypeId;
-    }
-
-    public void setAmenityTypeByAmenityTypeId(AmenityType amenityTypeByAmenityTypeId) {
-        this.amenityTypeByAmenityTypeId = amenityTypeByAmenityTypeId;
     }
 }

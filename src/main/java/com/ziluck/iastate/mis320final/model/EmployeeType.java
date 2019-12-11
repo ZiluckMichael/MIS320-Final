@@ -50,6 +50,16 @@ public class EmployeeType {
         return this;
     }
 
+    @OneToMany(mappedBy = "employeeTypeByEmployeeTypeId")
+    public List<Employee> getEmployeesByEmployeeTypeId() {
+        return employeesByEmployeeTypeId;
+    }
+
+    public EmployeeType setEmployeesByEmployeeTypeId(List<Employee> employeesByEmployeeTypeId) {
+        this.employeesByEmployeeTypeId = employeesByEmployeeTypeId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -77,15 +87,5 @@ public class EmployeeType {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (classification != null ? classification.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "employeeTypeByEmployeeTypeId")
-    public List<Employee> getEmployeesByEmployeeTypeId() {
-        return employeesByEmployeeTypeId;
-    }
-
-    public EmployeeType setEmployeesByEmployeeTypeId(List<Employee> employeesByEmployeeTypeId) {
-        this.employeesByEmployeeTypeId = employeesByEmployeeTypeId;
-        return this;
     }
 }
