@@ -39,6 +39,9 @@ dependencies {
 
     // JUnit
     testCompile 'junit:junit:4.12'
+
+    // https://mvnrepository.com/artifact/io.swagger/swagger-annotations
+    compile group: 'io.swagger', name: 'swagger-annotations', version: '1.6.0'
 }
 
 test {

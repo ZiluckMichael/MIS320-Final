@@ -1,62 +1,42 @@
 package com.ziluck.iastate.mis320final.controller;
 
-import com.ziluck.iastate.mis320final.config.JwtTokenUtil;
-import com.ziluck.iastate.mis320final.exception.AuthenticationException;
 import com.ziluck.iastate.mis320final.model.WebUser;
 import com.ziluck.iastate.mis320final.model.dto.AuthRequest;
 import com.ziluck.iastate.mis320final.model.dto.AuthResponse;
-import com.ziluck.iastate.mis320final.service.JwtUserDetailsService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.ziluck.iastate.mis320final.service.UserService;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/noauth")
 public class AuthenticationController {
-    private final AuthenticationManager authenticationManager;
+    private final UserService userService;
 
-    private final JwtTokenUtil jwtTokenUtil;
-
-    private final JwtUserDetailsService userDetailsService;
-
-    public AuthenticationController(AuthenticationManager authenticationManager,
-                                    JwtTokenUtil jwtTokenUtil,
-                                    JwtUserDetailsService userDetailsService) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenUtil = jwtTokenUtil;
-        this.userDetailsService = userDetailsService;
+    public AuthenticationController(UserService userService) {
+        this.userService = userService;
     }
 
-    @PostMapping("/noauth/authenticate")
-    public ResponseEntity<AuthResponse> requestToken(@RequestBody AuthRequest authenticationRequest) {
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final String token = jwtTokenUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new AuthResponse(token));
+    @PostMapping("/authenticate")
+    @ResponseBody
+    @ApiResponses({
+        @ApiResponse(code = 400, message = "Something went wrong"),
+        @ApiResponse(code = 422, message = "Invalid username/password supplied")
+    })
+    public AuthResponse requestToken(@RequestBody AuthRequest authRequest) {
+        return new AuthResponse(userService.signin(authRequest));
     }
 
-    @PostMapping("/noauth/register")
-    public ResponseEntity<AuthResponse> registerUser(@RequestBody WebUser user) {
-        user = userDetailsService.registerUser(user);
-        return requestToken(new AuthRequest(user.getEmail(), user.getPassword()));
-    }
-
-    private void authenticate(String username, String password) {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException e) {
-            throw new AuthenticationException("USER_DISABLED", e);
-        } catch (BadCredentialsException e) {
-            throw new AuthenticationException("INVALID_CREDENTIALS", e);
-        }
+    @PostMapping("/register")
+    @ResponseBody
+    @ApiResponses({
+        @ApiResponse(code = 400, message = "Something went wrong"),
+        @ApiResponse(code = 403, message = "Access denied"),
+        @ApiResponse(code = 422, message = "Username is already in use"),
+        @ApiResponse(code = 500, message = "Expired or invalid JWT token")
+    })
+    public AuthResponse registerUser(@RequestBody WebUser user) {
+        return new AuthResponse(userService.signup(user));
     }
 }

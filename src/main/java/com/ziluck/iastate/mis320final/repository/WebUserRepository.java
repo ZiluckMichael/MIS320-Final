@@ -4,11 +4,14 @@ import com.ziluck.iastate.mis320final.model.WebUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import javax.transaction.Transactional;
 
 @Repository
 public interface WebUserRepository extends JpaRepository<WebUser, Long> {
     WebUser findByEmail(String email);
 
-    List<WebUser> findByActiveTrue();
+    boolean existsByEmail(String email);
+
+    @Transactional
+    void deleteByEmail(String email);
 }

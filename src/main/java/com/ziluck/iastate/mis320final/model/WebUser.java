@@ -2,18 +2,10 @@ package com.ziluck.iastate.mis320final.model;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -96,6 +88,9 @@ public class WebUser {
     }
 
     public Set<WebRole> getRoleList() {
+        if (roleList == null) {
+            roleList = new HashSet<>();
+        }
         return roleList;
     }
 

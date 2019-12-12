@@ -1,5 +1,7 @@
 package com.ziluck.iastate.mis320final.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "role")
-public class WebRole {
+@Table(name = "web_role")
+public class WebRole implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -32,5 +34,10 @@ public class WebRole {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getAuthority() {
+        return getName();
     }
 }
