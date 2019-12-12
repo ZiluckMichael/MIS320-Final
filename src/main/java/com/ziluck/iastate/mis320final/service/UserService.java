@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class UserService {
@@ -52,10 +53,8 @@ public class UserService {
 
     public String signup(WebUser user) {
         if (!userRepository.existsByEmail(user.getEmail())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setId(userRepository.getMaxId() + 1);
-            userRepository.save(user);
             Guest guest = new Guest();
+            guest.setPersonId(user.getId());
             guest.setFirstName(user.getFirstName());
             guest.setLastName(user.getLastName());
             guest.setBirthDate(Date.valueOf("1997-08-02"));
@@ -64,6 +63,9 @@ public class UserService {
             guest.setRewardsNumber("000000000000");
             guest.setRewardsPoints(0);
             guestRepository.save(guest);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setId((int) guest.getPersonId());
+            userRepository.save(user);
             return jwtTokenProvider.createToken(user.getEmail(),
                 user.getWebRoleListButMakeItHaveASuperWeirdNameSoThereIsNoWayThatJPAOrHibernateCanTryAnySortOfFunnyBusinessOnHere());
         } else {

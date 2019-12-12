@@ -9,6 +9,10 @@ const routes: Routes = [
             {
                 path: 'dashboard',
                 loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+            },
+            {
+                path: 'reservation',
+                loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule)
             }
         ]
     }

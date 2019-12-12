@@ -1,7 +1,6 @@
 package com.ziluck.iastate.mis320final.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,8 +13,6 @@ public class Room {
     private long locationId;
     private RoomType roomTypeByRoomTypeId;
     private Location locationByLocationId;
-    private List<RoomAmenity> roomAmenitiesByRoomId;
-    private List<RoomReservation> roomReservationsByRoomId;
 
     @Id
     @GeneratedValue
@@ -70,26 +67,6 @@ public class Room {
 
     public Room setLocationByLocationId(Location locationByLocationId) {
         this.locationByLocationId = locationByLocationId;
-        return this;
-    }
-
-    @OneToMany(mappedBy = "roomByRoomId")
-    public List<RoomAmenity> getRoomAmenitiesByRoomId() {
-        return roomAmenitiesByRoomId;
-    }
-
-    public Room setRoomAmenitiesByRoomId(List<RoomAmenity> roomAmenitiesByRoomId) {
-        this.roomAmenitiesByRoomId = roomAmenitiesByRoomId;
-        return this;
-    }
-
-    @OneToMany(mappedBy = "room")
-    public List<RoomReservation> getRoomReservationsByRoomId() {
-        return roomReservationsByRoomId;
-    }
-
-    public Room setRoomReservationsByRoomId(List<RoomReservation> roomReservationsByRoomId) {
-        this.roomReservationsByRoomId = roomReservationsByRoomId;
         return this;
     }
 

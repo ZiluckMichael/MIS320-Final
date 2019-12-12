@@ -1,5 +1,7 @@
 package com.ziluck.iastate.mis320final.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -91,6 +93,7 @@ public class RoomType {
         return result;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "roomTypeByRoomTypeId")
     public List<Room> getRoomsByRoomTypeId() {
         return roomsByRoomTypeId;
@@ -101,6 +104,7 @@ public class RoomType {
         return this;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "roomTypeByRoomTypeId")
     public List<RoomTypeBed> getRoomTypeBedsByRoomTypeId() {
         return roomTypeBedsByRoomTypeId;

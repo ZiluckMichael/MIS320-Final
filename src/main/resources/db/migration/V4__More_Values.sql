@@ -1142,3 +1142,8 @@ INSERT INTO room_reservation (room_id, reservation_id)
 VALUES (14, 34);
 INSERT INTO room_reservation (room_id, reservation_id)
 VALUES (97, 2);
+
+CREATE SEQUENCE hibernate_sequence
+    MINVALUE 0
+    START WITH 50000
+    INCREMENT BY 1;

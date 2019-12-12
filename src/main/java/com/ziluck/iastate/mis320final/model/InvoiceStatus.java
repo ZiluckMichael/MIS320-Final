@@ -1,5 +1,7 @@
 package com.ziluck.iastate.mis320final.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -34,6 +36,7 @@ public class InvoiceStatus {
         return this;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "invoiceStatusByInvoiceStatusId")
     public List<Invoice> getInvoicesByInvoiceStatusId() {
         return invoicesByInvoiceStatusId;

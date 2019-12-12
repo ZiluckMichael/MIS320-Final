@@ -59,7 +59,10 @@ export class AuthenticationService implements OnDestroy {
         this.subscriptions.push(this.userHttpService.registerUser(user).subscribe(
             res => {
                 this.localStorageService.setItem(Key.BEARER_TOKEN, res.token);
-                this.localStorageService.setItem(Key.USER, res);
+                this.subscriptions.push(this.userHttpService.getFullUser(user.email).subscribe(res => {
+                    this.localStorageService.setItem(Key.USER, res);
+                }));
+                this.localStorageService.setItem(Key.USER, user);
                 if (this.authGuard.permissionCheck(user)) {
                     this.router.navigate([this.getExpectedTarget(null)]).catch((err) => this.handleError(err));
                 } else {

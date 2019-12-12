@@ -1,5 +1,7 @@
 package com.ziluck.iastate.mis320final.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -119,6 +121,7 @@ public class Location {
         return this;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "locationByLocationId")
     public List<Employee> getEmployeesByLocationId() {
         return employeesByLocationId;
@@ -129,6 +132,7 @@ public class Location {
         return this;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "locationByLocationId")
     public List<Room> getRoomsByLocationId() {
         return roomsByLocationId;

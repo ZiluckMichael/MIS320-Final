@@ -13,7 +13,6 @@ public class Reservation {
     private long guestId;
 
     @Id
-    @GeneratedValue
     @Column(name = "RESERVATION_ID")
     public long getReservationId() {
         return reservationId;
