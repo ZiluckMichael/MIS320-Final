@@ -1,11 +1,6 @@
 package com.ziluck.iastate.mis320final.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,6 +13,7 @@ public class EmployeeType {
     private List<Employee> employeesByEmployeeTypeId;
 
     @Id
+    @GeneratedValue
     @Column(name = "EMPLOYEE_TYPE_ID")
     public long getEmployeeTypeId() {
         return employeeTypeId;

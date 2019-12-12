@@ -20,6 +20,7 @@ public class Invoice {
     private List<InvoicePayment> invoicePaymentsByInvoiceId;
 
     @Id
+    @GeneratedValue
     @Column(name = "INVOICE_ID")
     public long getInvoiceId() {
         return invoiceId;

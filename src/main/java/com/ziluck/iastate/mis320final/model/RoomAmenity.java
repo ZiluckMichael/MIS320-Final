@@ -12,6 +12,7 @@ public class RoomAmenity {
     private AmenityType amenityTypeByAmenityTypeId;
 
     @Id
+    @GeneratedValue
     @Column(name = "ROOM_AMENITY_ID")
     public long getRoomAmenityId() {
         return roomAmenityId;

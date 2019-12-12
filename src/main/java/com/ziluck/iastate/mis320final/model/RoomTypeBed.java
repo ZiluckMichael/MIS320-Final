@@ -12,6 +12,7 @@ public class RoomTypeBed {
     private BedType bedTypeByBedTypeId;
 
     @Id
+    @GeneratedValue
     @Column(name = "ROOM_BED_ID")
     public long getRoomBedId() {
         return roomBedId;

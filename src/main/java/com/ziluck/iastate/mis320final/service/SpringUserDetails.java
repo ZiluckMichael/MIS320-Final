@@ -23,14 +23,14 @@ public class SpringUserDetails implements UserDetailsService {
             throw new UsernameNotFoundException("User '" + username + "' not found");
         }
 
-        return org.springframework.security.core.userdetails.User//
-            .withUsername(username)//
-            .password(user.getPassword())//
-            .authorities(user.getRoleList())//
-            .accountExpired(false)//
-            .accountLocked(false)//
-            .credentialsExpired(false)//
-            .disabled(false)//
+        return org.springframework.security.core.userdetails.User
+            .withUsername(username)
+            .password(user.getPassword())
+            .authorities(user.getWebRoleListButMakeItHaveASuperWeirdNameSoThereIsNoWayThatJPAOrHibernateCanTryAnySortOfFunnyBusinessOnHere())
+            .accountExpired(false)
+            .accountLocked(false)
+            .credentialsExpired(false)
+            .disabled(false)
             .build();
     }
 }

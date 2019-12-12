@@ -1,0 +1,56 @@
+<div class="container my-5">
+    <form #registerForm="ngForm" class="border border-light p-5 row" (ngSubmit)="register()">
+        <div class="col-md-6 mx-auto">
+            <p class="h4 mb-4">Register</p>
+
+            <div class="form-row mb-4">
+                <div class="col">
+                    <input class="form-control" name="firstName" required
+                           [ngClass]="{ 'is-invalid': registerForm.submitted && firstName.invalid, 'form-control-with-value': firstName.value }"
+                           [(ngModel)]="user.firstName" #firstName="ngModel" type="email" id="registerFormFirstName">
+                    <label class="form-control-placeholder" for="registerFormFirstName">First name</label>
+                    <div class="invalid-feedback" *ngIf="registerForm.submitted && firstName.invalid">
+                        {{ firstName | validationErrors: 'first name' }}
+                    </div>
+                </div>
+                <div class="col">
+                    <input class="form-control" name="lastName" required
+                           [ngClass]="{ 'is-invalid': registerForm.submitted && lastName.invalid, 'form-control-with-value': lastName.value }"
+                           [(ngModel)]="user.lastName" #lastName="ngModel" type="email" id="registerFormLastName">
+                    <label class="form-control-placeholder" for="registerFormLastName">Last name</label>
+                    <div class="invalid-feedback" *ngIf="registerForm.submitted && lastName.invalid">
+                        {{ lastName | validationErrors: 'last name' }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-4">
+                <input class="form-control" name="email" email required
+                       [ngClass]="{ 'is-invalid': registerForm.submitted && email.invalid, 'form-control-with-value': email.value }"
+                       [(ngModel)]="user.email" #email="ngModel" type="email" id="registerFormEmail">
+                <label class="form-control-placeholder" for="registerFormEmail">E-mail</label>
+                <div class="invalid-feedback" *ngIf="registerForm.submitted && email.invalid">
+                    {{ email | validationErrors: 'email' }}
+                </div>
+            </div>
+
+            <div class="form-group mb-4">
+                <input class="form-control" name="password" minlength="8" required type="password"
+                       [ngClass]="{ 'is-invalid': registerForm.submitted && password.invalid, 'form-control-with-value': password.value }"
+                       [(ngModel)]="user.password" #password="ngModel" id="registerFormPassword">
+                <label class="form-control-placeholder" for="registerFormPassword">Password</label>
+                <div class="invalid-feedback" *ngIf="registerForm.submitted && password.invalid">
+                    {{ password | validationErrors: 'password' }}
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-block" type="submit">
+                Register
+            </button>
+
+            <p>Already have an account?
+                <a routerLink="/portal/login" routerLinkActive="active">Back to login</a>
+            </p>
+        </div>
+    </form>
+</div>

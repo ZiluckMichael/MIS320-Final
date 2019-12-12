@@ -2,17 +2,19 @@ package com.ziluck.iastate.mis320final.model;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "web_user")
 public class WebUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
@@ -20,6 +22,7 @@ public class WebUser {
     @Email(message = "Please provide a valid Email")
     @NotEmpty(message = "Please provide an email")
     private String email;
+
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
@@ -34,10 +37,6 @@ public class WebUser {
 
     @Column(name = "active")
     private boolean active;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "web_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<WebRole> roleList;
 
     public int getId() {
         return id;
@@ -87,14 +86,9 @@ public class WebUser {
         this.active = active;
     }
 
-    public Set<WebRole> getRoleList() {
-        if (roleList == null) {
-            roleList = new HashSet<>();
-        }
-        return roleList;
-    }
-
-    public void setRoleList(Set<WebRole> roleList) {
-        this.roleList = roleList;
+    public List<WebRole> getWebRoleListButMakeItHaveASuperWeirdNameSoThereIsNoWayThatJPAOrHibernateCanTryAnySortOfFunnyBusinessOnHere() {
+        WebRole role = new WebRole();
+        role.setName("ADMIN");
+        return Collections.singletonList(role);
     }
 }

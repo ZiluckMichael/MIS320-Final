@@ -6,8 +6,7 @@ import { TitleService } from "../../shared/service/title.service";
 import { Subscription } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Key } from "app/shared/constants/key.constant";
-import { NgForm } from "@angular/forms";
-import { LoginService } from "./login.service";
+import { AuthenticationService } from "../authentication.service";
 
 @Component({
     selector: 'app-login',
@@ -16,8 +15,6 @@ import { LoginService } from "./login.service";
 })
 export class LoginComponent implements OnInit, OnDestroy {
     authRequest: AuthRequest;
-
-    loginForm: NgForm;
 
     private expectedTarget: string;
 
@@ -28,7 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         private titleService: TitleService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private loginService: LoginService
+        private authService: AuthenticationService
     ) {
         this.titleService.setTitle('Login');
         this.subscriptions.push(this.activatedRoute.queryParams.subscribe(params => {
@@ -37,10 +34,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     login() {
-        this.loginService.clearLoginStorage();
+        this.authService.clearLoginStorage();
         this.authRequest.username = this.authRequest.username.toLowerCase();
-        this.loginService.login(this.authRequest, this.expectedTarget);
-        console.log("clicked");
+        this.authService.login(this.authRequest, this.expectedTarget);
     }
 
     ngOnInit() {
@@ -50,7 +46,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.subscriptions.forEach(value => value.unsubscribe());
         this.subscriptions = null;
-        this.loginForm = null;
         this.authRequest = null;
         this.expectedTarget = null;
     }

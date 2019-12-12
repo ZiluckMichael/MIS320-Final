@@ -25,6 +25,7 @@
     "lodash-es": "^4.17.15",
     "ng2-al-slim-bar": "0.0.4",
     "ng4-loading-spinner": "^1.2.3",
+    "ngx-bootstrap": "^5.2.0",
     "ngx-toastr": "^11.2.1",
     "popper": "^1.0.1",
     "rxjs": "~6.4.0",

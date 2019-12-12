@@ -44,14 +44,4 @@ public class Guest extends Person {
         this.paymentCardsByPersonId = paymentCardsByPersonId;
         return this;
     }
-
-    @OneToMany(mappedBy = "guestByGuestId")
-    public List<Reservation> getReservationsByPersonId() {
-        return reservationsByPersonId;
-    }
-
-    public Guest setReservationsByPersonId(List<Reservation> reservationsByPersonId) {
-        this.reservationsByPersonId = reservationsByPersonId;
-        return this;
-    }
 }

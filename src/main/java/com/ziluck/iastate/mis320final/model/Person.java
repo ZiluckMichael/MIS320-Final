@@ -18,6 +18,7 @@ public abstract class Person {
     private String phoneExt;
 
     @Id
+    @GeneratedValue
     @Column(name = "PERSON_ID")
     public long getPersonId() {
         return personId;

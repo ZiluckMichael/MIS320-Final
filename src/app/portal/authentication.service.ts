@@ -1,19 +1,20 @@
-import { Injectable, OnDestroy } from "@angular/core";
-import { AuthRequest } from "app/shared/model/auth-request.model";
-import { LocalStorageHelperService } from "../../shared/service/local-storage-helper.service";
-import { Key } from "../../shared/constants/key.constant";
-import { UserHttpService } from "../../shared/service/http/user-http.service";
 import { Subscription } from "rxjs";
+import { AuthGuard } from "../shared/guard/auth.guard";
+import { AuthRequest } from "../shared/model/auth-request.model";
+import { AuthResponse } from "../shared/model/auth-response.model";
+import { LocalStorageHelperService } from "../shared/service/local-storage-helper.service";
+import { UserHttpService } from "../shared/service/http/user-http.service";
 import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
-import { HttpErrorResponse } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
-import { AuthGuard } from "../../shared/guard/auth.guard";
-import { AuthResponse } from "../../shared/model/auth-response.model";
-import { Path } from "../../shared/constants/path.constant";
+import { Key } from "../shared/constants/key.constant";
+import { Path } from "../shared/constants/path.constant";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Injectable, OnDestroy } from "@angular/core";
+import { User } from "../shared/model/user.model";
 
 @Injectable()
-export class LoginService implements OnDestroy {
+export class AuthenticationService implements OnDestroy {
     private subscriptions: Subscription[] = [];
 
     constructor(
@@ -28,7 +29,6 @@ export class LoginService implements OnDestroy {
 
     public login<U extends AuthRequest>(request: U, expectedTarget: string) {
         this.spinnerService.show();
-        // TODO add user controller endpoints
         this.subscriptions.push(this.userHttpService.loginUser(request).subscribe(
             res => {
                 this.localStorageService.setItem(Key.BEARER_TOKEN, res.token);
@@ -47,7 +47,29 @@ export class LoginService implements OnDestroy {
                     }
                 ));
             },
-            (err) => this.handleError(err)
+            (err) => this.handleError(err),
+            () => {
+                this.spinnerService.hide();
+            }
+        ));
+    }
+
+    public register<U extends User>(user: U) {
+        this.spinnerService.show();
+        this.subscriptions.push(this.userHttpService.registerUser(user).subscribe(
+            res => {
+                this.localStorageService.setItem(Key.BEARER_TOKEN, res.token);
+                this.localStorageService.setItem(Key.USER, res);
+                if (this.authGuard.permissionCheck(user)) {
+                    this.router.navigate([this.getExpectedTarget(null)]).catch((err) => this.handleError(err));
+                } else {
+                    this.router.navigate([Path.ACCESS_DENIED]).catch((err) => this.handleError(err));
+                }
+            },
+            (err) => this.handleError(err),
+            () => {
+                this.spinnerService.hide();
+            }
         ));
     }
 
@@ -56,8 +78,8 @@ export class LoginService implements OnDestroy {
     }
 
     public clearLoginStorage() {
-        this.localStorageService.removeItem(Key.USER);
         this.localStorageService.removeItem(Key.BEARER_TOKEN);
+        this.localStorageService.removeItem(Key.USER);
     }
 
     private handleError(res: HttpErrorResponse): void {

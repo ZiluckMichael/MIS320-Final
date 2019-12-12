@@ -1,27 +1,31 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { Path } from 'app/shared/constants/path.constant';
-import { AuthGuard } from 'app/shared/guard/auth.guard';
-import { AccessDeniedComponent } from 'app/access-denied/access-denied.component';
-import { NotFoundComponent } from 'app/not-found/not-found.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from "./shared/guard/auth.guard";
 
 const routes: Routes = [
-    { path: '', redirectTo: Path.LOGIN, pathMatch: 'full' },
-    { path: 'portal', loadChildren: './portal/portal.module#PortalModule' },
-    //{path: 'admin', loadChildren: './admin/admin.module#AdminModule', canActivate: [AuthGuard]},
+    { path: '', redirectTo: 'admin', pathMatch: 'full' },
+    {
+        path: 'portal',
+        loadChildren: () => import('./portal/portal.module').then(m => m.PortalModule)
+    },
+    {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+        canActivate: [AuthGuard]
+    },
     {
         path: '403',
-        loadChildren: () => import('app/access-denied/access-denied.module').then(m => m.AccessDeniedModule)
+        loadChildren: () => import('./access-denied/access-denied.module').then(m => m.AccessDeniedModule)
     },
     { path: '**', redirectTo: '404' },
     {
         path: '404',
-        loadChildren: () => import('app/not-found/not-found.module').then(m => m.NotFoundModule)
+        loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)
     },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, { enableTracing: true })],
     exports: [RouterModule]
 })
 export class AppRoutingModule {

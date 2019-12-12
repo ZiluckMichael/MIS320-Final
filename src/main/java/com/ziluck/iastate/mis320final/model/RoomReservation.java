@@ -12,6 +12,7 @@ public class RoomReservation {
     private Reservation reservationByReservationId;
 
     @Id
+    @GeneratedValue
     @Column(name = "ROOM_RESERVATION_ID")
     public long getRoomReservationId() {
         return roomReservationId;

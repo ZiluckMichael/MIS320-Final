@@ -14,10 +14,13 @@ import { LocalStorageHelperService } from "app/shared/service/local-storage-help
 import { SessionStorageHelperService } from "app/shared/service/session-storage-helper.service";
 import { TitleService } from "./shared/service/title.service";
 import { UserHttpService } from "./shared/service/http/user-http.service";
-import { ValidationErrorsPipe } from "./shared/pipe/validation-errors.pipe";
-import { SharedPipesModule } from "./shared/pipe/shared-pipes.module";
 import { TimeoutInterceptor } from "./shared/service/http/timeout.interceptor";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AuthInterceptor } from "./shared/guard/auth.interceptor";
+import { AccessDeniedModule } from "./access-denied/access-denied.module";
+import { NotFoundModule } from "./not-found/not-found.module";
+import { ReservationHttpService } from "./shared/service/http/reservation-http.service";
+import { GuestHttpService } from "./shared/service/http/guest-http.service";
 
 
 @NgModule({
@@ -25,6 +28,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         AppComponent
     ],
     imports: [
+        AccessDeniedModule,
+        NotFoundModule,
         BrowserModule,
         AppRoutingModule,
         NgbModule,
@@ -46,10 +51,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         ToastrService,
         TitleService,
         UserHttpService,
+        ReservationHttpService,
+        GuestHttpService,
         SlimLoadingBarService,
         LocalStorageHelperService,
         SessionStorageHelperService,
-        [{ provide: HTTP_INTERCEPTORS, useClass: TimeoutInterceptor, multi: true }]
+        { provide: HTTP_INTERCEPTORS, useClass: TimeoutInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     exports: [],
     bootstrap: [AppComponent]

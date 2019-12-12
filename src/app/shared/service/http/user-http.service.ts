@@ -19,6 +19,13 @@ export class UserHttpService {
         );
     }
 
+    registerUser<U extends User, T extends AuthResponse>(user: U): Observable<AuthResponse> {
+        return this.client.post<AuthResponse>(
+            HttpConstant.POST_REGISTER,
+            user
+        );
+    }
+
     getFullUser(username: string): Observable<User> {
         let httpParams = new HttpParams()
             .set(Key.USERNAME, username);

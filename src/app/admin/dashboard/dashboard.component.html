@@ -1,0 +1,21 @@
+<div>
+    Below are all current reservations. If you would like to create a new one, click "Reservation" in the header above.
+</div>
+<table class="table table-hover table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Reservation Id</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Guest</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let reservation of reservations">
+        <th scope="row">{{reservation.reservationId}}</th>
+        <td>{{reservation.startDate}}</td>
+        <td>{{reservation.endDate}}</td>
+        <td [innerText]="wrapGuest(this.guestCache[reservation.guestId]).fullName"></td>
+    </tr>
+    </tbody>
+</table>

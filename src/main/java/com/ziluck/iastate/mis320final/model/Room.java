@@ -1,13 +1,6 @@
 package com.ziluck.iastate.mis320final.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,6 +18,7 @@ public class Room {
     private List<RoomReservation> roomReservationsByRoomId;
 
     @Id
+    @GeneratedValue
     @Column(name = "ROOM_ID")
     public long getRoomId() {
         return roomId;

@@ -17,6 +17,18 @@ const PROXY_CONFIG = [
     {
         context: ['/noauth'],
         target: 'http://localhost:8080'
+    },
+    {
+        context: ['/user'],
+        target: 'http://localhost:8080'
+    },
+    {
+        context: ['/reservation'],
+        target: 'http://localhost:8080'
+    },
+    {
+        context: ['/guest'],
+        target: 'http://localhost:8080'
     }
 ];
 module.exports = PROXY_CONFIG;

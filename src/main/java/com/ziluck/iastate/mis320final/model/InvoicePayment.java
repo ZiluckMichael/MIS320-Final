@@ -1,12 +1,6 @@
 package com.ziluck.iastate.mis320final.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Time;
 import java.util.Objects;
 
@@ -22,6 +16,7 @@ public class InvoicePayment {
     private PaymentCard paymentCardByPaymentCardId;
 
     @Id
+    @GeneratedValue
     @Column(name = "INVOICE_PAYMENT_ID")
     public long getInvoicePaymentId() {
         return invoicePaymentId;

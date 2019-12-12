@@ -12,6 +12,7 @@ public class ReservationService {
     private Service serviceByServiceId;
 
     @Id
+    @GeneratedValue
     @Column(name = "RESERVATION_SERVICE_ID")
     public long getReservationServiceId() {
         return reservationServiceId;

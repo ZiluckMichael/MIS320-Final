@@ -2,9 +2,8 @@ package com.ziluck.iastate.mis320final.repository;
 
 import com.ziluck.iastate.mis320final.model.WebUser;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import javax.transaction.Transactional;
 
 @Repository
 public interface WebUserRepository extends JpaRepository<WebUser, Long> {
@@ -12,6 +11,6 @@ public interface WebUserRepository extends JpaRepository<WebUser, Long> {
 
     boolean existsByEmail(String email);
 
-    @Transactional
-    void deleteByEmail(String email);
+    @Query("SELECT COALESCE(MAX(id), 1) FROM WebUser")
+    int getMaxId();
 }
