@@ -21,7 +21,7 @@
     "@angular/router": "~8.2.14",
     "@ng-bootstrap/ng-bootstrap": "^5.1.4",
     "bootstrap": "^4.4.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash-es": "^4.17.15",
     "ng2-al-slim-bar": "0.0.4",
     "ng4-loading-spinner": "^1.2.3",
