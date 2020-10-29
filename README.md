@@ -1,27 +1,14 @@
-# Mis320Final
+# MIS 320 Final Project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
+This repository contains the code for the final project of MIS 320 for the Fall
+2019 semester at Iowa State University (ISU).
 
-## Development server
+Although this repository was created ~3 weeks before the project was due, the
+majority of it was completed in a single night. Knowing that, please take the
+code quality with a grain of salt. That being said, overall I think things came
+out pretty well. Nothing really is awful at the very least and this provides a
+very good basis for a simple Spring/Angular project utilizing Oracle (blegh) as
+a backend.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+All code in this project is totally free to use in any other project without
+credit, regardless of its license. Have at it.
